@@ -46,10 +46,11 @@ export default {
         },
         setRoom (room){
             this.currentRoom = room;
+            this.messages = this.getMessages();
         },
         getMessages() {
             axios.get('/chat/room/' + this.currentRoom.id + '/messages')
-             .then(res => {
+             .then(response => {
                 this.messages = response.data;
              })
              .catch(err => {
