@@ -16,8 +16,11 @@ import axios from 'axios';
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <message-container />
-                    <input-message :rooms="currentRoom" />
+                    <message-container :messages="messages" />
+                    <input-message 
+                       :rooms="currentRoom"
+                       v-on:messagesent="getMessages()"
+                       />
                 </div>
             </div>
         </div>
@@ -38,6 +41,7 @@ export default {
             axios.get('/chat/rooms')
                 .then(response => {
                     this.chatRooms = response.data;
+                    //console.log(response.data)
                     this.setRoom (response.data[0]);
                 })
                 .catch(err => {
